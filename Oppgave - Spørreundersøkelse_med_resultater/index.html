@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Spørreundersøkelse</title>
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+    <h1>Spørreundersøkelse</h1>
+    <div id="spørreskjema">
+        <!--Div for alle knappene i undersøkelsen-->
+    <h3>Svar på spørsmålene nedenfor:</h3>
+
+        <p>Er IT-faget morsomt?</p>
+        <label>
+            <input type="radio" name="spørsmal1" value="Ja" id="enig1"> Ja
+            <input type="radio" name="spørsmal1" value="Nei" id="uenig1"> Nei
+        </label>
+        <br>
+        <p>Ville du anbefalt IT-faget til andre elever?</p>
+        <label>
+            <input type="radio" name="spørsmal2" value="Ja" id="enig2"> Ja
+            <input type="radio" name="spørsmal2" value="Nei" id="uenig2"> Nei
+        </label>
+        <br>
+        <p>Er IT-faget krevende?</p>
+        <label>
+            <input type="radio" name="spørsmal3" value="Ja" id="enig3"> Ja
+            <input type="radio" name="spørsmal3" value="Nei" id="uenig3"> Nei
+        </label>
+        <br>
+        <p>Føler du at du lærer noe nyttig i IT-faget</p>
+        <label>
+            <input type="radio" name="spørsmal4" value="Ja" id="enig4"> Ja
+            <input type="radio" name="spørsmal4" value="Nei" id="uenig4"> Nei
+        </label>
+        <br>
+
+        <label>
+        <button id="svar" style="margin-top: 20px">Send inn</button>
+            <div id="visSvartekst">Trykk ovenfor for å sende inn dine svar, trykk nedenfor for å se resulatatene!</div>
+            <button id="visResultater" style="margin-top: 20px">Vis resultater</button>
+        </label>
+    </div>
+
+
+    <div id="resultater">
+        <!--Div for diagrammet-->
+        <h3>Resultater fra spørreundersøkelsen:</h3>
+
+        <p id="tekstResultat">Er IT-faget morsomt?</p>
+        <div id="sparsmalResultat1"></div>
+
+        <p id="tekstResultat">Ville du anbefalt IT-faget til andre elever?</p>
+        <div id="sparsmalResultat2"></div>
+
+        <p id="tekstResultat">Er IT-faget krevende?</p>
+        <div id="sparsmalResultat3"></div>
+
+        <p id="tekstResultat">Føler du at du lærer noe nyttig i IT-faget?</p>
+        <div id="sparsmalResultat4"></div>
+
+        <button id="visSkjema" style="margin-top: 20px">Vis undersøkelse</button>
+    </div>
+</body>
+</html>
+<script>
+
+    //variabler
+    let enig1 = 0;
+    let enig2 = 0;
+    let enig3 = 0;
+    let enig4 = 0;
+    let totaleSvar = 0;
+    let enig1EL = document.querySelector("#enig1");
+    let enig2EL = document.querySelector("#enig2");
+    let enig3EL = document.querySelector("#enig3");
+    let enig4EL = document.querySelector("#enig4");
+    let svarEl = document.querySelector("#svar");
+    let visResultaterEl = document.querySelector("#visResultater");
+    let visSkjemaEl = document.querySelector("#visSkjema");
+
+    //Kaller på funksjoner når knappene blir trykket på
+    svarEl.addEventListener("click", sjekkSvar);
+    svarEl.addEventListener("click", totalesvarf);
+    visResultaterEl.addEventListener("click", visResultaterf);
+    visSkjemaEl.addEventListener("click", visSkjemaf);
+
+    //Funksjon logger per gang en knapp blir valgt
+    function sjekkSvar() {
+        if (enig1EL.checked){ enig1 = enig1 + 1
+        }
+        if (enig2EL.checked){ enig2 = enig2 + 1
+        }
+        if (enig3EL.checked){ enig3 = enig3 + 1
+        }
+        if (enig4EL.checked){ enig4 = enig4 + 1
+        }
+    }
+
+    //Funksjon som bestemmer søylestørrelsen
+    function totalesvarf() {
+        totaleSvar = totaleSvar + 1;
+        document.getElementById("sparsmalResultat1").style.width = enig1/totaleSvar*100+"%";
+        document.getElementById("sparsmalResultat2").style.width = enig2/totaleSvar*100+"%";
+        document.getElementById("sparsmalResultat3").style.width = enig3/totaleSvar*100+"%";
+        document.getElementById("sparsmalResultat4").style.width = enig4/totaleSvar*100+"%";
+    }
+
+    //Funksjon som skjuler og viser resulatat og skjemasiden når de skal vises, dette forhindrer at begge div'ene vises på begge sider og holder hele undersøkelsen på en side.
+    function visResultaterf() {
+        document.getElementById("spørreskjema").style.display = "none";
+        document.getElementById("resultater").style.display = "";
+    }
+
+    function visSkjemaf () {
+        document.getElementById("spørreskjema").style.display = "";
+        document.getElementById("resultater").style.display = "none";
+    }
+
+    //Bestemmer størrelsen til søylene før noen endring
+    document.getElementById("resultater").style.display = "none";
+    document.getElementById("sparsmalResultat1").style.backgroundColor = "grey";
+    document.getElementById("sparsmalResultat1").style.width = 0+"%";
+    document.getElementById("sparsmalResultat2").style.backgroundColor = "grey";
+    document.getElementById("sparsmalResultat2").style.width = 0+"%";
+    document.getElementById("sparsmalResultat3").style.backgroundColor = "grey";
+    document.getElementById("sparsmalResultat3").style.width = 0+"%";
+    document.getElementById("sparsmalResultat4").style.backgroundColor = "grey";
+    document.getElementById("sparsmalResultat4").style.width = 0+"%";
+
+
+</script>
